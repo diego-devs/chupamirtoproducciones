@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import './App.css'
 
 type MediaCard = {
@@ -23,9 +24,12 @@ const galleryImages: MediaCard[] = [
   { title: 'Producción en set 04', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_14.JPG' },
   { title: 'Producción en set 05', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_20.JPG' },
   { title: 'Producción en set 06', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_28.JPG' },
+  { title: 'Producción en set 07', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG' },
+  { title: 'Producción en set 08', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_37.JPG' },
 ]
 
 const projects: ProjectCard[] = [
+  { title: 'Demo Reel', embed: 'https://www.youtube.com/embed/I3k-HH7Iac0' },
   { title: 'Proyecto destacado 01', embed: 'https://www.youtube.com/embed/3zdaFzkmrzc' },
   { title: 'Proyecto destacado 02', embed: 'https://www.youtube.com/embed/RKMEpDfYJ2s' },
   { title: 'Proyecto destacado 03', embed: 'https://www.youtube.com/embed/5kxSmTzanPo' },
@@ -132,19 +136,48 @@ const additionalServices = [
   'Postproducción',
 ]
 
+const quickQuestions = [
+  'Quiero cotizar una producción',
+  'Necesito renta de equipo',
+  'Busco postproducción',
+]
+
+const whatsappBaseUrl = 'https://wa.me/5215561117954'
+const defaultWhatsappMessage = 'Hola, me gustaría pedir informes sobre Chupamirto Producciones.'
+
+function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: string }) {
+  return (
+    <div className={`hummingbird-logo ${className}`.trim()}>
+      <img className="hummingbird-logo__body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt={alt} />
+      <img className="hummingbird-logo__wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
+    </div>
+  )
+}
+
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [chatMessage, setChatMessage] = useState(defaultWhatsappMessage)
+
+  const whatsappHref = useMemo(
+    () => `${whatsappBaseUrl}?text=${encodeURIComponent(chatMessage || defaultWhatsappMessage)}`,
+    [chatMessage],
+  )
+
+  const openChatWithPrompt = (message: string) => {
+    setChatMessage(`Hola, ${message.toLowerCase()}. ¿Me comparten información, por favor?`)
+    setIsChatOpen(true)
+  }
+
   return (
     <div className="page-shell">
       <header className="topbar">
         <a className="brand" href="#inicio" aria-label="Ir al inicio de Chupamirto Producciones">
-          <div className="brand-mark">
-            <img className="brand-wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
-            <img className="brand-body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt="Chupamirto Producciones" />
-          </div>
+          <HummingbirdLogo alt="Chupamirto Producciones" />
         </a>
 
         <nav className="nav">
           <a href="#quienes">¿Quiénes somos?</a>
+          <a href="#galeria">Galería</a>
           <a href="#servicios">Proyectos</a>
           <a href="#equipo">Equipo</a>
           <a href="#adicionales">Servicios adicionales</a>
@@ -178,17 +211,14 @@ function App() {
               <a className="button primary" href="https://www.youtube.com/watch?v=I3k-HH7Iac0" target="_blank" rel="noreferrer">
                 Ver Demo Reel
               </a>
-              <a className="button secondary" href="https://wa.me/5215561117954?text=Me%20gustar%C3%ADa%20pedir%20informes" target="_blank" rel="noreferrer">
+              <button className="button secondary" type="button" onClick={() => setIsChatOpen((value) => !value)}>
                 Pedir informes
-              </a>
+              </button>
             </div>
           </div>
 
           <div className="hero-badge reveal delay-2">
-            <div className="brand-mark hero-mark">
-              <img className="brand-wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
-              <img className="brand-body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt="Logotipo Chupamirto Producciones" />
-            </div>
+            <HummingbirdLogo alt="Logotipo Chupamirto Producciones" className="hero-mark" />
             <p>Inspirado en la identidad visual original: azul profundo, amarillo vibrante, acentos magenta y el colibrí animado en portada.</p>
           </div>
         </section>
@@ -224,15 +254,18 @@ function App() {
           </div>
         </section>
 
-        <section className="gallery-section section">
+        <section className="gallery-section section" id="galeria">
           <div className="section-heading reveal">
             <p className="eyebrow">Galería</p>
-            <h2>Imágenes reales del sitio y de sus producciones, no placeholders</h2>
+            <h2>Imágenes reales del sitio y de sus producciones, en un carrusel horizontal</h2>
           </div>
-          <div className="gallery-grid">
+          <div className="gallery-scroller">
             {galleryImages.map((item, index) => (
               <article className={`gallery-card reveal delay-${(index % 3) + 1}`} key={item.image}>
                 <img src={item.image} alt={item.title} loading="lazy" />
+                <div className="gallery-card__caption">
+                  <span>{item.title}</span>
+                </div>
               </article>
             ))}
           </div>
@@ -241,9 +274,9 @@ function App() {
         <section className="projects-section section section-pink" id="servicios">
           <div className="section-heading reveal">
             <p className="eyebrow">Proyectos y colaboraciones</p>
-            <h2>Selección de piezas audiovisuales publicadas en su sitio actual</h2>
+            <h2>Videos desplazables, tomados de sus piezas publicadas</h2>
           </div>
-          <div className="projects-grid">
+          <div className="projects-scroller">
             {projects.map((project, index) => (
               <article className={`project-card reveal delay-${(index % 3) + 1}`} key={project.embed}>
                 <div className="video-frame">
@@ -317,6 +350,46 @@ function App() {
           </div>
         </section>
       </main>
+
+      <div className={`floating-chat ${isChatOpen ? 'floating-chat--open' : ''}`}>
+        {isChatOpen && (
+          <div className="floating-chat__panel">
+            <p className="floating-chat__eyebrow">WhatsApp</p>
+            <h3>Cuéntanos qué necesitas</h3>
+            <p>Abre una conversación rápida y te llevamos directo a WhatsApp.</p>
+            <div className="floating-chat__chips">
+              {quickQuestions.map((question) => (
+                <button key={question} type="button" onClick={() => openChatWithPrompt(question)}>
+                  {question}
+                </button>
+              ))}
+            </div>
+            <label className="floating-chat__field">
+              <span>Mensaje</span>
+              <textarea value={chatMessage} onChange={(event) => setChatMessage(event.target.value)} rows={4} />
+            </label>
+            <div className="floating-chat__actions">
+              <button type="button" className="button ghost" onClick={() => setIsChatOpen(false)}>
+                Cerrar
+              </button>
+              <a className="button primary" href={whatsappHref} target="_blank" rel="noreferrer">
+                Ir a WhatsApp
+              </a>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="floating-chat__toggle"
+          onClick={() => setIsChatOpen((value) => !value)}
+          aria-expanded={isChatOpen}
+          aria-label="Abrir chat de WhatsApp"
+        >
+          <span>WhatsApp</span>
+          <strong>{isChatOpen ? 'Cerrar' : 'Abrir chat'}</strong>
+        </button>
+      </div>
     </div>
   )
 }
