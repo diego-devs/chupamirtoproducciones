@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
 type MediaCard = {
@@ -147,16 +147,89 @@ const defaultWhatsappMessage = 'Hola, me gustaría pedir informes sobre Chupamir
 
 function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: string }) {
   return (
-    <div className={`hummingbird-logo ${className}`.trim()}>
+    <div className={`hummingbird-logo ${className}`.trim()} aria-hidden="true">
       <img className="hummingbird-logo__body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt={alt} />
       <img className="hummingbird-logo__wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
     </div>
   )
 }
 
+type ScrollCarouselProps<T> = {
+  items: T[]
+  className: string
+  trackClassName: string
+  renderItem: (item: T, index: number) => React.ReactNode
+  ariaLabel: string
+}
+
+function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaLabel }: ScrollCarouselProps<T>) {
+  const trackRef = useRef<HTMLDivElement | null>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  useEffect(() => {
+    const element = trackRef.current
+    if (!element) return
+
+    const updateScrollState = () => {
+      const maxScrollLeft = element.scrollWidth - element.clientWidth
+      setCanScrollLeft(element.scrollLeft > 8)
+      setCanScrollRight(maxScrollLeft - element.scrollLeft > 8)
+    }
+
+    updateScrollState()
+    element.addEventListener('scroll', updateScrollState, { passive: true })
+
+    const resizeObserver = new ResizeObserver(updateScrollState)
+    resizeObserver.observe(element)
+    Array.from(element.children).forEach((child) => resizeObserver.observe(child))
+    window.addEventListener('resize', updateScrollState)
+
+    return () => {
+      element.removeEventListener('scroll', updateScrollState)
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updateScrollState)
+    }
+  }, [items])
+
+  const scrollByViewport = (direction: 'left' | 'right') => {
+    const element = trackRef.current
+    if (!element) return
+
+    const delta = Math.max(element.clientWidth * 0.82, 280) * (direction === 'left' ? -1 : 1)
+    element.scrollBy({ left: delta, behavior: 'smooth' })
+  }
+
+  return (
+    <div className={className}>
+      <button
+        type="button"
+        className="carousel-control carousel-control--left"
+        onClick={() => scrollByViewport('left')}
+        aria-label={`Desplazar ${ariaLabel} hacia la izquierda`}
+        disabled={!canScrollLeft}
+      >
+        ‹
+      </button>
+      <div ref={trackRef} className={trackClassName} tabIndex={0} aria-label={ariaLabel}>
+        {items.map((item, index) => renderItem(item, index))}
+      </div>
+      <button
+        type="button"
+        className="carousel-control carousel-control--right"
+        onClick={() => scrollByViewport('right')}
+        aria-label={`Desplazar ${ariaLabel} hacia la derecha`}
+        disabled={!canScrollRight}
+      >
+        ›
+      </button>
+    </div>
+  )
+}
+
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false)
-  const [isEquipmentOpen, setIsEquipmentOpen] = useState(false)
+  const [isEquipmentOpen, setIsEquipmentOpen] = useState(true)
   const [chatMessage, setChatMessage] = useState(defaultWhatsappMessage)
 
   const whatsappHref = useMemo(
@@ -260,16 +333,20 @@ function App() {
             <p className="eyebrow">Galería</p>
             <h2>Imágenes reales del sitio y de sus producciones, en un carrusel horizontal</h2>
           </div>
-          <div className="gallery-scroller">
-            {galleryImages.map((item, index) => (
+          <ScrollCarousel
+            items={galleryImages}
+            className="carousel-shell"
+            trackClassName="gallery-scroller"
+            ariaLabel="galería de imágenes"
+            renderItem={(item, index) => (
               <article className={`gallery-card reveal delay-${(index % 3) + 1}`} key={item.image}>
                 <img src={item.image} alt={item.title} loading="lazy" />
                 <div className="gallery-card__caption">
                   <span>{item.title}</span>
                 </div>
               </article>
-            ))}
-          </div>
+            )}
+          />
         </section>
 
         <section className="projects-section section section-pink" id="servicios">
@@ -277,8 +354,12 @@ function App() {
             <p className="eyebrow">Proyectos y colaboraciones</p>
             <h2>Videos desplazables, tomados de sus piezas publicadas</h2>
           </div>
-          <div className="projects-scroller">
-            {projects.map((project, index) => (
+          <ScrollCarousel
+            items={projects}
+            className="carousel-shell"
+            trackClassName="projects-scroller"
+            ariaLabel="galería de videos"
+            renderItem={(project, index) => (
               <article className={`project-card reveal delay-${(index % 3) + 1}`} key={project.embed}>
                 <div className="video-frame">
                   <iframe
@@ -292,8 +373,8 @@ function App() {
                 </div>
                 <h3>{project.title}</h3>
               </article>
-            ))}
-          </div>
+            )}
+          />
         </section>
 
         <section className="equipment-section section section-green" id="equipo">
