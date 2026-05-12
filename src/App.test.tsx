@@ -15,7 +15,17 @@ describe('App interactions', () => {
     expect(screen.getByRole('button', { name: /ver equipo/i })).toBeInTheDocument()
   })
 
-  it('drags the gallery horizontally on touch move', () => {
+  it('keeps native touch scrolling enabled for the image gallery', () => {
+    render(<App />)
+
+    const galleryTrack = document.querySelector('.gallery-scroller') as HTMLDivElement | null
+    expect(galleryTrack).not.toBeNull()
+
+    const track = galleryTrack!
+    expect(track.style.touchAction).toBe('pan-x')
+  })
+
+  it('does not bind custom pointer-drag handlers to the image gallery', () => {
     render(<App />)
 
     const galleryTrack = document.querySelector('.gallery-scroller') as HTMLDivElement | null
@@ -30,8 +40,8 @@ describe('App interactions', () => {
     fireEvent.pointerMove(track, { pointerId: 7, pointerType: 'touch', clientX: 180 })
     fireEvent.pointerUp(track, { pointerId: 7, pointerType: 'touch' })
 
-    expect(track.scrollLeft).toBe(180)
-    expect(track.setPointerCapture).toHaveBeenCalledWith(7)
-    expect(track.releasePointerCapture).toHaveBeenCalledWith(7)
+    expect(track.scrollLeft).toBe(120)
+    expect(track.setPointerCapture).not.toHaveBeenCalled()
+    expect(track.releasePointerCapture).not.toHaveBeenCalled()
   })
 })
