@@ -540,6 +540,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
+  pointer-events: none;
 }
 
 .floating-chat__panel {
@@ -628,6 +629,7 @@
   background: rgba(11, 132, 68, 0.96);
   color: #ffffff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  pointer-events: auto;
 }
 
 .floating-chat__toggle-badge {
