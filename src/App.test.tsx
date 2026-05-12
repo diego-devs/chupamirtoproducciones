@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import App from './App'
 
 describe('App interactions', () => {
@@ -15,14 +15,23 @@ describe('App interactions', () => {
     expect(screen.getByRole('button', { name: /ver equipo/i })).toBeInTheDocument()
   })
 
-  it('marks the carousel track as touch-scrollable', () => {
+  it('drags the gallery horizontally on touch move', () => {
     render(<App />)
 
-    const galleryTrack = document.querySelector('.gallery-scroller') as HTMLElement | null
+    const galleryTrack = document.querySelector('.gallery-scroller') as HTMLDivElement | null
     expect(galleryTrack).not.toBeNull()
 
-    fireEvent.pointerDown(galleryTrack!, { pointerType: 'touch' })
+    const track = galleryTrack!
+    Object.defineProperty(track, 'scrollLeft', { value: 120, writable: true, configurable: true })
+    track.setPointerCapture = vi.fn()
+    track.releasePointerCapture = vi.fn()
 
-    expect(galleryTrack).toHaveFocus()
+    fireEvent.pointerDown(track, { pointerId: 7, pointerType: 'touch', clientX: 240 })
+    fireEvent.pointerMove(track, { pointerId: 7, pointerType: 'touch', clientX: 180 })
+    fireEvent.pointerUp(track, { pointerId: 7, pointerType: 'touch' })
+
+    expect(track.scrollLeft).toBe(180)
+    expect(track.setPointerCapture).toHaveBeenCalledWith(7)
+    expect(track.releasePointerCapture).toHaveBeenCalledWith(7)
   })
 })

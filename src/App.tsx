@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import type { PointerEvent as ReactPointerEvent } from 'react'
 import './App.css'
 
 type MediaCard = {
@@ -164,6 +165,7 @@ type ScrollCarouselProps<T> = {
 
 function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaLabel }: ScrollCarouselProps<T>) {
   const trackRef = useRef<HTMLDivElement | null>(null)
+  const pointerStateRef = useRef<{ pointerId: number; startX: number; startScrollLeft: number } | null>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
 
@@ -200,13 +202,44 @@ function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaL
     element.scrollBy({ left: delta, behavior: 'smooth' })
   }
 
-  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== 'touch') return
+
+    const element = trackRef.current
+    if (!element) return
 
     const interactiveTarget = (event.target as HTMLElement | null)?.closest('button, a, iframe, input, textarea, select, label')
     if (interactiveTarget) return
 
-    trackRef.current?.focus({ preventScroll: true })
+    pointerStateRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScrollLeft: element.scrollLeft,
+    }
+
+    element.setPointerCapture?.(event.pointerId)
+  }
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'touch') return
+
+    const element = trackRef.current
+    const pointerState = pointerStateRef.current
+    if (!element || !pointerState || pointerState.pointerId !== event.pointerId) return
+
+    const deltaX = event.clientX - pointerState.startX
+    element.scrollLeft = pointerState.startScrollLeft - deltaX
+  }
+
+  const resetPointerState = (event?: ReactPointerEvent<HTMLDivElement>) => {
+    const pointerState = pointerStateRef.current
+    const element = trackRef.current
+
+    if (event && element && pointerState?.pointerId === event.pointerId) {
+      element.releasePointerCapture?.(event.pointerId)
+    }
+
+    pointerStateRef.current = null
   }
 
   return (
@@ -220,7 +253,17 @@ function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaL
       >
         ‹
       </button>
-      <div ref={trackRef} className={trackClassName} tabIndex={0} aria-label={ariaLabel} onPointerDown={handlePointerDown}>
+      <div
+        ref={trackRef}
+        className={trackClassName}
+        tabIndex={0}
+        aria-label={ariaLabel}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={resetPointerState}
+        onPointerCancel={resetPointerState}
+        onPointerLeave={resetPointerState}
+      >
         {items.map((item, index) => renderItem(item, index))}
       </div>
       <button

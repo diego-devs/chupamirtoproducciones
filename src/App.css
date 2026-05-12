@@ -326,14 +326,15 @@
   grid-auto-columns: minmax(280px, 34vw);
   gap: 18px;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
   padding: 4px 8px 18px;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x pinch-zoom;
+  touch-action: pan-x;
+  cursor: grab;
 }
 
 .gallery-scroller::-webkit-scrollbar,
@@ -358,6 +359,7 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
+  overflow: visible;
 }
 
 .carousel-control {
@@ -715,6 +717,7 @@
 
   .carousel-shell {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .carousel-control {
@@ -749,7 +752,11 @@
     align-items: stretch;
   }
 
-  .contact-card,
+  .equipment-section__toggle {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
   .floating-chat__panel {
     padding: 20px;
   }
