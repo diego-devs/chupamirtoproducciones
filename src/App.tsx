@@ -148,7 +148,7 @@ const defaultWhatsappMessage = 'Hola, me gustaría pedir informes sobre Chupamir
 function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: string }) {
   return (
     <div className={`hummingbird-logo ${className}`.trim()}>
-      <img className="hummingbird-logo__image" src="/source-assets/images/chupamirto_logo_full.jpg" alt={alt} />
+      <img className="hummingbird-logo__image" src="/source-assets/images/chupamirto_logo_transparent.png" alt={alt} />
     </div>
   )
 }
@@ -359,7 +359,7 @@ function App() {
             trackClassName="projects-scroller"
             ariaLabel="galería de videos"
             renderItem={(project, index) => (
-              <article className={`project-card reveal delay-${(index % 3) + 1}`} key={project.embed}>
+              <article className={`project-card glass-card reveal delay-${(index % 3) + 1}`} key={project.embed}>
                 <div className="video-frame">
                   <iframe
                     src={project.embed}
@@ -399,7 +399,7 @@ function App() {
           {isEquipmentOpen && (
             <div className="equipment-grid">
               {equipmentCategories.map((category, index) => (
-                <article className={`equipment-card reveal delay-${(index % 3) + 1}`} key={category.name}>
+                <article className={`equipment-card glass-card reveal delay-${(index % 3) + 1}`} key={category.name}>
                   <img src={category.image} alt={category.name} loading="lazy" />
                   <div className="equipment-content">
                     <h3>{category.name}</h3>
