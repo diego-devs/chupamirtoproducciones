@@ -326,11 +326,14 @@
   grid-auto-columns: minmax(280px, 34vw);
   gap: 18px;
   overflow-x: auto;
+  overflow-y: visible;
   overscroll-behavior-x: contain;
   padding: 4px 8px 18px;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pinch-zoom;
 }
 
 .gallery-scroller::-webkit-scrollbar,
@@ -358,12 +361,13 @@
 }
 
 .carousel-control {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
   width: 52px;
   height: 52px;
   border: 0;
@@ -457,6 +461,8 @@
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 3;
 }
 
 .equipment-section__toggle strong {

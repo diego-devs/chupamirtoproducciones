@@ -200,6 +200,15 @@ function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaL
     element.scrollBy({ left: delta, behavior: 'smooth' })
   }
 
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'touch') return
+
+    const interactiveTarget = (event.target as HTMLElement | null)?.closest('button, a, iframe, input, textarea, select, label')
+    if (interactiveTarget) return
+
+    trackRef.current?.focus({ preventScroll: true })
+  }
+
   return (
     <div className={className}>
       <button
@@ -211,7 +220,7 @@ function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaL
       >
         ‹
       </button>
-      <div ref={trackRef} className={trackClassName} tabIndex={0} aria-label={ariaLabel}>
+      <div ref={trackRef} className={trackClassName} tabIndex={0} aria-label={ariaLabel} onPointerDown={handlePointerDown}>
         {items.map((item, index) => renderItem(item, index))}
       </div>
       <button
