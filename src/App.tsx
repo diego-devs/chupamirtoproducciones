@@ -156,6 +156,7 @@ function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: str
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false)
+  const [isEquipmentOpen, setIsEquipmentOpen] = useState(false)
   const [chatMessage, setChatMessage] = useState(defaultWhatsappMessage)
 
   const whatsappHref = useMemo(
@@ -296,29 +297,42 @@ function App() {
         </section>
 
         <section className="equipment-section section section-green" id="equipo">
-          <div className="section-heading reveal">
-            <p className="eyebrow">Equipo</p>
-            <h2>Contamos con el equipo más reciente y de mejor calidad. ¡Al mejor precio!</h2>
-            <p className="section-copy">
-              Ver lista de equipo y categorías principales tal como aparecen en el sitio original, reorganizadas en una presentación más clara.
-            </p>
+          <div className="section-heading reveal equipment-section__header">
+            <div>
+              <p className="eyebrow">Equipo</p>
+              <h2>Contamos con el equipo más reciente y de mejor calidad. ¡Al mejor precio!</h2>
+              <p className="section-copy">
+                Ver lista de equipo y categorías principales tal como aparecen en el sitio original, reorganizadas en una presentación más clara.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="equipment-section__toggle"
+              onClick={() => setIsEquipmentOpen((value) => !value)}
+              aria-expanded={isEquipmentOpen}
+            >
+              <span>{isEquipmentOpen ? 'Ocultar equipo' : 'Ver equipo'}</span>
+              <strong>{isEquipmentOpen ? '−' : '+'}</strong>
+            </button>
           </div>
 
-          <div className="equipment-grid">
-            {equipmentCategories.map((category, index) => (
-              <article className={`equipment-card reveal delay-${(index % 3) + 1}`} key={category.name}>
-                <img src={category.image} alt={category.name} loading="lazy" />
-                <div className="equipment-content">
-                  <h3>{category.name}</h3>
-                  <ul>
-                    {category.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            ))}
-          </div>
+          {isEquipmentOpen && (
+            <div className="equipment-grid">
+              {equipmentCategories.map((category, index) => (
+                <article className={`equipment-card reveal delay-${(index % 3) + 1}`} key={category.name}>
+                  <img src={category.image} alt={category.name} loading="lazy" />
+                  <div className="equipment-content">
+                    <h3>{category.name}</h3>
+                    <ul>
+                      {category.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="services-section section section-purple" id="adicionales">
@@ -338,7 +352,7 @@ function App() {
             <p className="eyebrow">Contacto</p>
             <h2>Hablemos de tu próximo proyecto audiovisual</h2>
             <div className="contact-links">
-              <a href="tel:+5215561117954">Tel &amp; WA: +52 1 55 6111 7954</a>
+              <a href="tel:+521****7954">Tel &amp; WA: +52 1 55 6111 7954</a>
               <a href="mailto:contacto@chupamirtoproducciones.com">contacto@chupamirtoproducciones.com</a>
             </div>
             <div className="social-links">
@@ -352,32 +366,30 @@ function App() {
       </main>
 
       <div className={`floating-chat ${isChatOpen ? 'floating-chat--open' : ''}`}>
-        {isChatOpen && (
-          <div className="floating-chat__panel">
-            <p className="floating-chat__eyebrow">WhatsApp</p>
-            <h3>Cuéntanos qué necesitas</h3>
-            <p>Abre una conversación rápida y te llevamos directo a WhatsApp.</p>
-            <div className="floating-chat__chips">
-              {quickQuestions.map((question) => (
-                <button key={question} type="button" onClick={() => openChatWithPrompt(question)}>
-                  {question}
-                </button>
-              ))}
-            </div>
-            <label className="floating-chat__field">
-              <span>Mensaje</span>
-              <textarea value={chatMessage} onChange={(event) => setChatMessage(event.target.value)} rows={4} />
-            </label>
-            <div className="floating-chat__actions">
-              <button type="button" className="button ghost" onClick={() => setIsChatOpen(false)}>
-                Cerrar
+        <div className={`floating-chat__panel ${isChatOpen ? 'floating-chat__panel--visible' : ''}`} aria-hidden={!isChatOpen}>
+          <p className="floating-chat__eyebrow">WhatsApp</p>
+          <h3>Cuéntanos qué necesitas</h3>
+          <p>Abre una conversación rápida y te llevamos directo a WhatsApp.</p>
+          <div className="floating-chat__chips">
+            {quickQuestions.map((question) => (
+              <button key={question} type="button" onClick={() => openChatWithPrompt(question)}>
+                {question}
               </button>
-              <a className="button primary" href={whatsappHref} target="_blank" rel="noreferrer">
-                Ir a WhatsApp
-              </a>
-            </div>
+            ))}
           </div>
-        )}
+          <label className="floating-chat__field">
+            <span>Mensaje</span>
+            <textarea value={chatMessage} onChange={(event) => setChatMessage(event.target.value)} rows={4} />
+          </label>
+          <div className="floating-chat__actions">
+            <button type="button" className="button ghost" onClick={() => setIsChatOpen(false)}>
+              Cerrar
+            </button>
+            <a className="button primary" href={whatsappHref} target="_blank" rel="noreferrer">
+              Ir a WhatsApp
+            </a>
+          </div>
+        </div>
 
         <button
           type="button"
@@ -386,8 +398,10 @@ function App() {
           aria-expanded={isChatOpen}
           aria-label="Abrir chat de WhatsApp"
         >
-          <span>WhatsApp</span>
-          <strong>{isChatOpen ? 'Cerrar' : 'Abrir chat'}</strong>
+          <span className="floating-chat__toggle-badge" aria-hidden="true">
+            WA
+          </span>
+          <span className="floating-chat__toggle-label">{isChatOpen ? 'Cerrar' : 'WhatsApp'}</span>
         </button>
       </div>
     </div>
