@@ -137,27 +137,42 @@ function App() {
     <div className="page-shell">
       <header className="topbar">
         <a className="brand" href="#inicio" aria-label="Ir al inicio de Chupamirto Producciones">
-          <img src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt="Chupamirto Producciones" />
+          <div className="brand-mark">
+            <img className="brand-wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
+            <img className="brand-body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt="Chupamirto Producciones" />
+          </div>
         </a>
 
         <nav className="nav">
           <a href="#quienes">¿Quiénes somos?</a>
           <a href="#servicios">Proyectos</a>
           <a href="#equipo">Equipo</a>
-          <a href="#adicionales">Servicios Adicionales</a>
+          <a href="#adicionales">Servicios adicionales</a>
           <a href="#contacto">Contacto</a>
         </nav>
       </header>
 
       <main>
         <section className="hero-section" id="inicio">
+          <video
+            className="hero-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster="/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG"
+          >
+            <source src="/source-assets/video/chupamirto_producciones_demoreel_2018.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-overlay" />
+
           <div className="hero-copy reveal">
             <p className="eyebrow">Productora audiovisual mexicana</p>
             <h1>Chupamirto Producciones</h1>
             <p className="lead">
-              Somos una empresa mexicana de producción audiovisual con una década de trayectoria en el negocio del cine y la televisión.
-              Hemos adquirido amplia experiencia y alta eficiencia en producción, filmación, post-producción de audiovisuales,
-              películas, videoclips musicales, campañas de posicionamiento y piezas especiales.
+              Producción, filmación y postproducción de audiovisuales con una línea artística-técnica sofisticada,
+              pensada para cine, televisión, videoclips, campañas publicitarias y piezas especiales.
             </p>
             <div className="hero-actions">
               <a className="button primary" href="https://www.youtube.com/watch?v=I3k-HH7Iac0" target="_blank" rel="noreferrer">
@@ -169,20 +184,16 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-visual reveal delay-1">
-            <div className="floating-card main-shot">
-              <img src="/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG" alt="Rodaje de Chupamirto Producciones" />
+          <div className="hero-badge reveal delay-2">
+            <div className="brand-mark hero-mark">
+              <img className="brand-wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
+              <img className="brand-body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt="Logotipo Chupamirto Producciones" />
             </div>
-            <div className="floating-card accent-shot top">
-              <img src="/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_12.JPG" alt="Behind the scenes" />
-            </div>
-            <div className="floating-card accent-shot bottom">
-              <img src="/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_25.JPG" alt="Equipo técnico en producción" />
-            </div>
+            <p>Inspirado en la identidad visual original: azul profundo, amarillo vibrante, acentos magenta y el colibrí animado en portada.</p>
           </div>
         </section>
 
-        <section className="info-grid section" id="quienes">
+        <section className="info-grid section section-blue" id="quienes">
           <div className="section-heading reveal">
             <p className="eyebrow">¿Quiénes somos?</p>
             <h2>Creatividad potente y vanguardista con altos estándares de calidad</h2>
@@ -190,20 +201,17 @@ function App() {
 
           <div className="text-card reveal delay-1">
             <p>
-              Lo anterior siempre con los más altos estándares de calidad y profesionalismo, teniendo como prioridad un desarrollo
-              creativo potente y vanguardista, acompañado de una línea artística-técnica sofisticada y adecuada al objetivo de cada proyecto.
+              Somos una empresa mexicana de producción audiovisual con una década de trayectoria en el negocio del cine y la televisión.
+              Hemos adquirido amplia experiencia y alta eficiencia en producción, filmación, postproducción de audiovisuales,
+              películas, videoclips musicales, campañas de posicionamiento y piezas especiales.
             </p>
           </div>
 
           <div className="text-card reveal delay-2">
             <h3>Misión</h3>
             <p>
-              Nuestro interés como cineastas y creativos mexicanos es seguir creciendo, aportando valor y fortaleciendo el resurgimiento del Cine Mexicano de calidad,
-              en el que se vuelva a situar lo cualitativo y lo artístico como vanguardia de lo superfluo.
-            </p>
-            <p>
-              Motivados por esta convicción, también brindamos a nuestros clientes y socios comerciales servicios de alta calidad para la creación de proyectos audiovisuales
-              que generen un gran impacto en sus consumidores finales de una forma eficiente, eficaz, creativa y artística.
+              Nuestro interés como cineastas y creativos mexicanos es seguir creciendo, aportando valor y fortaleciendo el resurgimiento del cine mexicano de calidad,
+              situando lo cualitativo y lo artístico como vanguardia de cada proyecto.
             </p>
           </div>
 
@@ -219,7 +227,7 @@ function App() {
         <section className="gallery-section section">
           <div className="section-heading reveal">
             <p className="eyebrow">Galería</p>
-            <h2>La misma esencia visual, ahora en una experiencia más cinematográfica</h2>
+            <h2>Imágenes reales del sitio y de sus producciones, no placeholders</h2>
           </div>
           <div className="gallery-grid">
             {galleryImages.map((item, index) => (
@@ -230,9 +238,9 @@ function App() {
           </div>
         </section>
 
-        <section className="projects-section section" id="servicios">
+        <section className="projects-section section section-pink" id="servicios">
           <div className="section-heading reveal">
-            <p className="eyebrow">Proyectos y Colaboraciones</p>
+            <p className="eyebrow">Proyectos y colaboraciones</p>
             <h2>Selección de piezas audiovisuales publicadas en su sitio actual</h2>
           </div>
           <div className="projects-grid">
@@ -254,12 +262,12 @@ function App() {
           </div>
         </section>
 
-        <section className="equipment-section section" id="equipo">
+        <section className="equipment-section section section-green" id="equipo">
           <div className="section-heading reveal">
             <p className="eyebrow">Equipo</p>
             <h2>Contamos con el equipo más reciente y de mejor calidad. ¡Al mejor precio!</h2>
             <p className="section-copy">
-              Ver lista de equipo y categorías principales tal como aparecen en el sitio original, reorganizadas en una presentación más clara y moderna.
+              Ver lista de equipo y categorías principales tal como aparecen en el sitio original, reorganizadas en una presentación más clara.
             </p>
           </div>
 
@@ -280,10 +288,10 @@ function App() {
           </div>
         </section>
 
-        <section className="services-section section" id="adicionales">
+        <section className="services-section section section-purple" id="adicionales">
           <div className="section-heading reveal">
-            <p className="eyebrow">Servicios Adicionales</p>
-            <h2>Todo el soporte creativo y técnico que el sitio actual comunica</h2>
+            <p className="eyebrow">Servicios adicionales</p>
+            <h2>Todo el soporte creativo y técnico que comunica su marca original</h2>
           </div>
           <div className="services-cloud reveal delay-1">
             {additionalServices.map((service) => (
@@ -292,7 +300,7 @@ function App() {
           </div>
         </section>
 
-        <section className="contact-section section" id="contacto">
+        <section className="contact-section section section-yellow" id="contacto">
           <div className="contact-card reveal">
             <p className="eyebrow">Contacto</p>
             <h2>Hablemos de tu próximo proyecto audiovisual</h2>

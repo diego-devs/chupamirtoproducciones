@@ -1,19 +1,23 @@
 :root {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: Roboto, Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #f6f7fb;
-  background:
-    radial-gradient(circle at top, rgba(224, 180, 72, 0.12), transparent 28%),
-    linear-gradient(180deg, #07111b 0%, #0f1825 48%, #06090f 100%);
+  background: #06123d;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --accent: #d8b44d;
-  --text-primary: #f5f7fa;
-  --text-muted: #b8c3d4;
+  --navy: #001e6d;
+  --yellow: #ffc700;
+  --green: #82c840;
+  --pink: #e10050;
+  --purple: #85238e;
+  --text-primary: #f7f8fb;
+  --text-muted: rgba(255, 255, 255, 0.82);
+  --panel: rgba(255, 255, 255, 0.09);
+  --panel-border: rgba(255, 255, 255, 0.18);
 }
 
 * {
@@ -28,16 +32,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(circle at center, black, transparent 85%);
+  background: var(--navy);
 }
 
 #root {
@@ -52,21 +47,29 @@ img {
   max-width: 100%;
 }
 
+h1,
+h2,
+h3 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-transform: uppercase;
+}
+
 h1 {
-  font-size: clamp(3rem, 6vw, 5.8rem);
-  line-height: 0.98;
-  letter-spacing: -0.05em;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
   margin-bottom: 22px;
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
 }
 
 p {
