@@ -6,13 +6,13 @@ describe('App interactions', () => {
   it('toggles the equipment section', () => {
     render(<App />)
 
-    const hideButton = screen.getByRole('button', { name: /ocultar equipo/i })
-    expect(screen.getByText(/Cámara RED SCARLET W/i)).toBeInTheDocument()
-
-    fireEvent.click(hideButton)
-
+    const showButton = screen.getByRole('button', { name: /ver equipo/i })
     expect(screen.queryByText(/Cámara RED SCARLET W/i)).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /ver equipo/i })).toBeInTheDocument()
+
+    fireEvent.click(showButton)
+
+    expect(screen.getByText(/Cámara RED SCARLET W/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /ocultar equipo/i })).toBeInTheDocument()
   })
 
   it('keeps native touch scrolling enabled for the image gallery', () => {

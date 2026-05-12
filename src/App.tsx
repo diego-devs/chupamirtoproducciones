@@ -147,9 +147,8 @@ const defaultWhatsappMessage = 'Hola, me gustaría pedir informes sobre Chupamir
 
 function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: string }) {
   return (
-    <div className={`hummingbird-logo ${className}`.trim()} aria-hidden="true">
-      <img className="hummingbird-logo__body" src="/source-assets/images/chupamirto_producciones_logo_cuerpo.svg" alt={alt} />
-      <img className="hummingbird-logo__wing" src="/source-assets/images/chupamirto_producciones_logo_ala.svg" alt="" aria-hidden="true" />
+    <div className={`hummingbird-logo ${className}`.trim()}>
+      <img className="hummingbird-logo__image" src="/source-assets/images/chupamirto_logo_full.jpg" alt={alt} />
     </div>
   )
 }
@@ -229,7 +228,7 @@ function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaL
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false)
-  const [isEquipmentOpen, setIsEquipmentOpen] = useState(true)
+  const [isEquipmentOpen, setIsEquipmentOpen] = useState(false)
   const [chatMessage, setChatMessage] = useState(defaultWhatsappMessage)
 
   const whatsappHref = useMemo(
