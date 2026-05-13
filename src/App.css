@@ -1,7 +1,24 @@
 .page-shell {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--navy);
   color: var(--text-primary);
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .topbar {
@@ -142,6 +159,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
   padding: 14px 24px;
   border-radius: 999px;
   font-weight: 700;
@@ -150,6 +168,16 @@
   cursor: pointer;
   font: inherit;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.button,
+.nav a,
+.services-cloud span,
+.equipment-section__toggle,
+.floating-chat__toggle,
+.contact-links a,
+.social-links a {
+  overflow-wrap: anywhere;
 }
 
 .button:hover,
@@ -604,6 +632,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
   transition:
     filter 0.22s ease,
     transform 0.22s ease,
@@ -849,9 +878,21 @@
   }
 
   .brand,
-  .nav {
+  .nav,
+  .hero-copy,
+  .hero-badge,
+  .section-heading,
+  .text-card,
+  .contact-card,
+  .equipment-card,
+  .gallery-card,
+  .project-card,
+  .services-cloud,
+  .contact-links,
+  .social-links {
     width: 100%;
     min-width: 0;
+    max-width: 100%;
   }
 
   .brand-text {
@@ -872,6 +913,14 @@
     padding: 10px 12px;
   }
 
+  .hero-copy h1,
+  .section-heading h2,
+  .contact-card h2,
+  .hero-badge h2 {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
   .hero-section,
   .info-grid,
   .equipment-grid {
@@ -887,10 +936,48 @@
     padding: 64px 18px;
   }
 
+  .carousel-shell {
+    overflow: hidden;
+  }
+
   .gallery-scroller,
   .projects-scroller {
-    grid-auto-columns: minmax(82vw, 82vw);
-    padding-inline: 0;
+    grid-auto-columns: 100%;
+    gap: 12px;
+    padding: 4px 0 18px;
+  }
+
+  .gallery-card {
+    min-height: 320px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .services-cloud span {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .contact-links,
+  .social-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-links a,
+  .social-links a {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .equipment-section__header {
@@ -903,7 +990,10 @@
     width: 100%;
     justify-content: space-between;
   }
+
   .floating-chat__panel {
+    width: 100%;
+    max-width: 100%;
     padding: 20px;
   }
 

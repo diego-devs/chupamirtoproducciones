@@ -18,12 +18,30 @@ type EquipmentCategory = {
 }
 
 const galleryImages: MediaCard[] = [
-  { title: 'Dirección de escena', image: '/source-assets/imgs/production-gallery-1.jpg' },
-  { title: 'Equipo de rodaje', image: '/source-assets/imgs/team-production-1.jpg' },
-  { title: 'Producción en locación', image: '/source-assets/imgs/production-gallery-2.jpg' },
-  { title: 'Postproducción creativa', image: '/source-assets/imgs/production-gallery-3.jpg' },
-  { title: 'Equipo en set', image: '/source-assets/imgs/team-production-2.jpg' },
-  { title: 'Cobertura cinematográfica', image: '/source-assets/imgs/production-gallery-4.jpg' },
+  {
+    title: 'Filmación con claqueta en exterior',
+    image: '/source-assets/imgs/production-gallery-1.jpg',
+  },
+  {
+    title: 'Rodaje de equipo en set',
+    image: '/source-assets/imgs/team-production-1.jpg',
+  },
+  {
+    title: 'Producción documental en camino abierto',
+    image: '/source-assets/imgs/production-gallery-2.jpg',
+  },
+  {
+    title: 'Revisión creativa y postproducción',
+    image: '/source-assets/imgs/production-gallery-3.jpg',
+  },
+  {
+    title: 'Trabajo coordinado del crew',
+    image: '/source-assets/imgs/team-production-2.jpg',
+  },
+  {
+    title: 'Cobertura de show con iluminación escénica',
+    image: '/source-assets/imgs/production-gallery-4.jpg',
+  },
 ]
 
 const projects: ProjectCard[] = [
