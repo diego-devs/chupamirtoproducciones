@@ -19,28 +19,28 @@ type EquipmentCategory = {
 
 const galleryImages: MediaCard[] = [
   {
-    title: 'Filmación con claqueta en exterior',
-    image: '/source-assets/imgs/production-gallery-1.jpg',
+    title: 'Dirección visual en locación',
+    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_24.JPG',
   },
   {
-    title: 'Rodaje de equipo en set',
-    image: '/source-assets/imgs/team-production-1.jpg',
+    title: 'Producción publicitaria en set',
+    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_30.JPG',
   },
   {
-    title: 'Producción documental en camino abierto',
-    image: '/source-assets/imgs/production-gallery-2.jpg',
+    title: 'Cobertura cinematográfica con crew completo',
+    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG',
   },
   {
-    title: 'Revisión creativa y postproducción',
-    image: '/source-assets/imgs/production-gallery-3.jpg',
+    title: 'Trabajo de cámara en rodaje',
+    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_18.JPG',
   },
   {
-    title: 'Trabajo coordinado del crew',
-    image: '/source-assets/imgs/team-production-2.jpg',
+    title: 'Set técnico para producciones especiales',
+    image: '/source-assets/imgs/movil_2.jpeg',
   },
   {
-    title: 'Cobertura de show con iluminación escénica',
-    image: '/source-assets/imgs/production-gallery-4.jpg',
+    title: 'Despliegue operativo en producción audiovisual',
+    image: '/source-assets/imgs/equipo_extra_2.jpeg',
   },
 ]
 
@@ -122,7 +122,7 @@ const equipmentCategories: EquipmentCategory[] = [
   },
   {
     name: 'Postproducción e iluminación',
-    image: '/source-assets/imgs/SALA_DE_POST_PRODUCCION.png',
+    image: '/source-assets/imgs/equipo_extra.jpeg',
     items: [
       'Atomos Sumo 19 monitor grabador 4K HDR',
       'Equipo de Asteras',
@@ -156,6 +156,15 @@ const quickQuestions = [
   'Quiero cotizar una producción',
   'Necesito renta de equipo',
   'Busco postproducción',
+]
+
+const navLinks = [
+  { href: '#quienes', label: '¿Quiénes somos?' },
+  { href: '#galeria', label: 'Galería' },
+  { href: '#servicios', label: 'Proyectos' },
+  { href: '#equipo', label: 'Equipo' },
+  { href: '#adicionales', label: 'Servicios' },
+  { href: '#contacto', label: 'Contacto' },
 ]
 
 const whatsappBaseUrl = 'https://wa.me/5215561117954'
@@ -237,6 +246,7 @@ function ScrollCarousel<T>({ items, className, trackClassName, renderItem, ariaL
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [isEquipmentOpen, setIsEquipmentOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [chatMessage, setChatMessage] = useState(defaultWhatsappMessage)
 
   const whatsappHref = useMemo(
@@ -249,6 +259,10 @@ function App() {
     setIsChatOpen(true)
   }
 
+  const handleNavClick = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <div className="page-shell">
       <header className="topbar">
@@ -256,13 +270,25 @@ function App() {
           <span className="brand-text">Chupamirto Producciones</span>
         </a>
 
-        <nav className="nav">
-          <a href="#quienes">¿Quiénes somos?</a>
-          <a href="#galeria">Galería</a>
-          <a href="#servicios">Proyectos</a>
-          <a href="#equipo">Equipo</a>
-          <a href="#adicionales">Servicios adicionales</a>
-          <a href="#contacto">Contacto</a>
+        <button
+          type="button"
+          className={`menu-toggle ${isMobileMenuOpen ? 'menu-toggle--open' : ''}`}
+          onClick={() => setIsMobileMenuOpen((value) => !value)}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="site-navigation"
+          aria-label="Abrir menú principal"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav className={`nav ${isMobileMenuOpen ? 'nav--open' : ''}`} id="site-navigation">
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} onClick={handleNavClick}>
+              {link.label}
+            </a>
+          ))}
         </nav>
       </header>
 
@@ -341,7 +367,7 @@ function App() {
         <section className="gallery-section section" id="galeria">
           <div className="section-heading reveal">
             <p className="eyebrow">Galería</p>
-            <h2>Imágenes reales del sitio y de sus producciones, en un carrusel horizontal</h2>
+            <h2>Producciones que comunican con fuerza visual</h2>
           </div>
           <ScrollCarousel
             items={galleryImages}
@@ -362,7 +388,7 @@ function App() {
         <section className="projects-section section section-pink" id="servicios">
           <div className="section-heading reveal">
             <p className="eyebrow">Proyectos y colaboraciones</p>
-            <h2>Videos desplazables, tomados de sus piezas publicadas</h2>
+            <h2>Piezas audiovisuales y colaboraciones destacadas</h2>
           </div>
           <ScrollCarousel
             items={projects}
@@ -443,7 +469,7 @@ function App() {
             <p className="eyebrow">Contacto</p>
             <h2>Hablemos de tu próximo proyecto audiovisual</h2>
             <div className="contact-links">
-              <a href="tel:+521****7954">Tel &amp; WA: +52 1 55 6111 7954</a>
+              <a href="tel:+5215561117954">Tel &amp; WA: +52 1 55 6111 7954</a>
               <a href="mailto:contacto@chupamirtoproducciones.com">contacto@chupamirtoproducciones.com</a>
             </div>
             <div className="social-links">
