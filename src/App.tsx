@@ -20,27 +20,27 @@ type EquipmentCategory = {
 const galleryImages: MediaCard[] = [
   {
     title: 'Dirección visual en locación',
-    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_24.JPG',
+    image: '/source-assets/imgs/production-gallery-1.jpg',
   },
   {
     title: 'Producción publicitaria en set',
-    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_30.JPG',
+    image: '/source-assets/imgs/production-gallery-2.jpg',
   },
   {
     title: 'Cobertura cinematográfica con crew completo',
-    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG',
+    image: '/source-assets/imgs/production-gallery-3.jpg',
   },
   {
     title: 'Trabajo de cámara en rodaje',
-    image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_18.JPG',
+    image: '/source-assets/imgs/production-gallery-4.jpg',
   },
   {
     title: 'Set técnico para producciones especiales',
-    image: '/source-assets/imgs/movil_2.jpeg',
+    image: '/source-assets/imgs/team-production-1.jpg',
   },
   {
     title: 'Despliegue operativo en producción audiovisual',
-    image: '/source-assets/imgs/equipo_extra_2.jpeg',
+    image: '/source-assets/imgs/team-production-2.jpg',
   },
 ]
 
@@ -57,7 +57,7 @@ const projects: ProjectCard[] = [
 const equipmentCategories: EquipmentCategory[] = [
   {
     name: 'Cámara RED SCARLET W',
-    image: '/source-assets/imgs/RED_GEMINI_Y_SCARLETT_W_CHUPAMIRTO_PRODUCCIONES.JPG',
+    image: '/source-assets/imgs/DJI_RONIN_CHUPAMIRTO_PRODUCCIONES.jpg',
     items: [
       'RED SCARLET W 5K Sensor Dragon',
       'RED V-Lock Expander',
@@ -71,7 +71,7 @@ const equipmentCategories: EquipmentCategory[] = [
   },
   {
     name: 'Cámara RED GEMINI',
-    image: '/source-assets/imgs/RED_GEMINI_Y_SCARLETT W_2_CHUPAMIRTO_PRODUCCIONES.JPG',
+    image: '/source-assets/imgs/DRONE_MAVIC_2_PRO_ZOOM_KIT.jpg',
     items: [
       'Cámara RED GEMINI 5K S35',
       'RED V-Lock Expander',
@@ -85,7 +85,7 @@ const equipmentCategories: EquipmentCategory[] = [
   },
   {
     name: 'Cámara URSA MINI 4K',
-    image: '/source-assets/imgs/BLACKMAGIG_URSA_MINI_4K_CHUPAMIRTO_PRODUCCIONES.jpg',
+    image: '/source-assets/imgs/TILTA_NUCLEOUS_M_FOLLOW_FOCUS_KIT.jpg',
     items: [
       'Cámara URSA MINI 4K',
       'Lentes Rokinon Cinema montura EF (24mm, 50mm, 85mm, 135mm, 75-300mm Canon)',
@@ -99,7 +99,7 @@ const equipmentCategories: EquipmentCategory[] = [
   },
   {
     name: 'Video Assist',
-    image: '/source-assets/imgs/TERADEK_BOLT_500_SET.jpg',
+    image: '/source-assets/imgs/TERADEK_BOLT_500.jpg',
     items: [
       'Set para 1 cámara con Teradek Bolt 500 SDI (250 mts de alcance)',
       'Monitor de 24 pulgadas',
@@ -111,7 +111,7 @@ const equipmentCategories: EquipmentCategory[] = [
   },
   {
     name: 'Estabilización y movimiento',
-    image: '/source-assets/imgs/STEADY_CAM_CHUPAMIRTO_PRODUCCIONES.jpg',
+    image: '/source-assets/imgs/SALA_DE_POST_PRODUCCION.png',
     items: [
       'Steadycam Bumblebee Basson Steady System',
       'Tilta Armor Man',
@@ -122,7 +122,7 @@ const equipmentCategories: EquipmentCategory[] = [
   },
   {
     name: 'Postproducción e iluminación',
-    image: '/source-assets/imgs/equipo_extra.jpeg',
+    image: '/source-assets/imgs/movil_1.jpeg',
     items: [
       'Atomos Sumo 19 monitor grabador 4K HDR',
       'Equipo de Asteras',
@@ -301,7 +301,7 @@ function App() {
             muted
             playsInline
             preload="metadata"
-            poster="/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG"
+            poster="/source-assets/imgs/production-gallery-3.jpg"
           >
             <source src="/source-assets/video/chupamirto_producciones_demoreel_2018.mp4" type="video/mp4" />
           </video>
