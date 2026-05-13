@@ -148,7 +148,7 @@ const defaultWhatsappMessage = 'Hola, me gustaría pedir informes sobre Chupamir
 function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: string }) {
   return (
     <div className={`hummingbird-logo ${className}`.trim()}>
-      <img className="hummingbird-logo__image" src="/source-assets/images/chupamirto_logo_transparent.png" alt={alt} />
+      <img className="hummingbird-logo__image" src="/source-assets/images/chupamirto_logo_full.jpg" alt={alt} />
     </div>
   )
 }
