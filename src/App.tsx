@@ -18,14 +18,12 @@ type EquipmentCategory = {
 }
 
 const galleryImages: MediaCard[] = [
-  { title: 'Producción en set 01', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_1.JPG' },
-  { title: 'Producción en set 02', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_5.JPG' },
-  { title: 'Producción en set 03', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_9.JPG' },
-  { title: 'Producción en set 04', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_14.JPG' },
-  { title: 'Producción en set 05', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_20.JPG' },
-  { title: 'Producción en set 06', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_28.JPG' },
-  { title: 'Producción en set 07', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_34.JPG' },
-  { title: 'Producción en set 08', image: '/source-assets/imgs/chuparmito_producciones/chupamirto_producciones_37.JPG' },
+  { title: 'Dirección de escena', image: '/source-assets/imgs/production-gallery-1.jpg' },
+  { title: 'Equipo de rodaje', image: '/source-assets/imgs/team-production-1.jpg' },
+  { title: 'Producción en locación', image: '/source-assets/imgs/production-gallery-2.jpg' },
+  { title: 'Postproducción creativa', image: '/source-assets/imgs/production-gallery-3.jpg' },
+  { title: 'Equipo en set', image: '/source-assets/imgs/team-production-2.jpg' },
+  { title: 'Cobertura cinematográfica', image: '/source-assets/imgs/production-gallery-4.jpg' },
 ]
 
 const projects: ProjectCard[] = [
@@ -145,14 +143,6 @@ const quickQuestions = [
 const whatsappBaseUrl = 'https://wa.me/5215561117954'
 const defaultWhatsappMessage = 'Hola, me gustaría pedir informes sobre Chupamirto Producciones.'
 
-function HummingbirdLogo({ alt, className = '' }: { alt: string; className?: string }) {
-  return (
-    <div className={`hummingbird-logo ${className}`.trim()}>
-      <img className="hummingbird-logo__image" src="/source-assets/images/chupamirto_logo_full.jpg" alt={alt} />
-    </div>
-  )
-}
-
 type ScrollCarouselProps<T> = {
   items: T[]
   className: string
@@ -245,7 +235,7 @@ function App() {
     <div className="page-shell">
       <header className="topbar">
         <a className="brand" href="#inicio" aria-label="Ir al inicio de Chupamirto Producciones">
-          <HummingbirdLogo alt="Chupamirto Producciones" />
+          <span className="brand-text">Chupamirto Producciones</span>
         </a>
 
         <nav className="nav">
@@ -291,8 +281,11 @@ function App() {
           </div>
 
           <div className="hero-badge reveal delay-2">
-            <HummingbirdLogo alt="Logotipo Chupamirto Producciones" className="hero-mark" />
-            <p>Inspirado en la identidad visual original: azul profundo, amarillo vibrante, acentos magenta y el colibrí animado en portada.</p>
+            <p className="hero-badge__eyebrow">Desde idea hasta entrega final</p>
+            <h2>Producción audiovisual con dirección, ejecución y post impecable</h2>
+            <p>
+              Equipos propios, realización creativa y una operación lista para cine, campañas, branded content, videoclips y piezas especiales.
+            </p>
           </div>
         </section>
 

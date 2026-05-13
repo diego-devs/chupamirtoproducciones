@@ -21,8 +21,8 @@ describe('App source structure', () => {
     expect(cssSource).toContain('@keyframes chatPanelIn')
   })
 
-  it('uses a dedicated hummingbird logo lockup instead of the old wing/body pair', () => {
-    expect(appSource).toContain('hummingbird-logo')
+  it('uses a text-based brand lockup instead of the old wing/body pair', () => {
+    expect(appSource).toContain('brand-text')
     expect(appSource).not.toContain('brand-wing')
   })
 
