@@ -799,17 +799,10 @@ body,
   padding: 0;
 }
 
-.floating-chat__toggle-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+.floating-chat__toggle-icon {
+  width: 31px;
+  height: 31px;
+  fill: currentColor;
 }
 
 .reveal {

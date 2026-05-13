@@ -15,9 +15,10 @@ describe('App source structure', () => {
   })
 
   it('includes a compact floating WhatsApp launcher and animated panel styles', () => {
-    expect(appSource).toContain('floating-chat__toggle-badge')
-    expect(appSource).toContain('floating-chat__toggle-label')
+    expect(appSource).toContain('floating-chat__toggle-icon')
+    expect(appSource).toContain('aria-label={isChatOpen ? \'Cerrar chat de WhatsApp\' : \'Abrir chat de WhatsApp\'}')
     expect(cssSource).toContain('floating-chat__panel--visible')
+    expect(cssSource).toContain('floating-chat__toggle-icon')
     expect(cssSource).toContain('@keyframes chatPanelIn')
   })
 
